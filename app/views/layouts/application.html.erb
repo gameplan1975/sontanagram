@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sontanagram</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <header>
+    <div class="header-inner">
+      <div class ="header-logo">
+        <a href="/"><img src="/assets/logo.jpg"></a>
+      </div>
+        <ul class ="header-menus">
+          <li><img src="/assets/home00.jpg"></li>
+          <li><img src="/assets/plane00.jpg"></li>
+          <li><img src="/assets/compass00.jpg"></li>
+          <li><img src="/assets/heart00.jpg"></li>
+          <li><% if logged_in? %>
+                <%=link_to current_user.name, "/users/#{current_user.id}" %>          
+    　　　    <% end %></li>
+        </ul>
+      </div>
+    </header>
+    <div>
+    <hr>
+    
+    <%= yield %>
+    </div>
+    <footer>
+      <% if logged_in? %>
+        <%=link_to "ログアウト", session_path(current_user.id), method: :delete %>
+      <% end %>
+      <p>基本データ　ヘルプ　所在地</p>
+      <p style="color:#8e8e8e">© 2020 SONTANAGRAM FROM SONTANA</P>
+    </footer>
+  </body>
+</html>

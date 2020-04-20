@@ -1,0 +1,12 @@
+<div class="body-content">
+    <p id="notice"><%= notice %></p>
+    <% if @blog.user.id == current_user.id? %>
+        <h3>編集してください(edit)</h3>
+        <%= render 'form', blog: @blog %>
+        <% else %>
+        <h3>他ユーザーの投稿は編集できません</h3>
+    <% end %>
+    <br>
+    <%= link_to '詳細', @blog %> |
+    <%= link_to '一覧', blogs_path %>
+</div>

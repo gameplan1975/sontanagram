@@ -1,0 +1,41 @@
+<div class="body-content">
+    <p id="notice"><%= notice %></p>
+    <h3>いいね！した投稿一覧(Like)</h3>
+    <% if @user.id == current_user.id %>
+        <%= link_to 'プロフィール編集', edit_user_path(@user) %> |
+    <% end %>
+    <%= link_to 'ユーザー一覧', users_path %> |
+    <% if @user.id == current_user.id %>
+        <%= link_to 'ブログ一覧', blogs_path %> |
+    <% end %>
+    <%= link_to '新規投稿', new_blog_path %>
+    <% @favorites.each do |favorite| %>
+      <% blog = Blog.find_by(id: favorite.blog_id) %>
+        <div class="body-frame">
+            <% if blog.blog_image? %>
+                <p><%= image_tag blog.blog_image.url %></P>
+            <% end %>
+            <%= blog.content %><br>
+            <p style="color:#9f9f9f; text-align:right"><%= blog.updated_at.strftime("%Y-%m-%d %H:%M") %>
+                <p style="text-align: right; color: #9f9f9f;">
+            <% if blog.user.user_image? %>
+                <%= image_tag blog.user.user_image.url, class:'user-icon' %>
+            <% else %>
+                <%= image_tag "/assets/face00.jpg", :size =>'30x30' %>
+            <% end %>
+            <%= blog.user.name %>が投稿</p>
+            <!--いいね機能-->
+            <% if Favorite.find_by(user_id: current_user.id, blog_id: blog.id) %>
+                <%= link_to("/favorites/#{blog.id}/destroy", {method: "post"}) do %>
+                <p><span class="fa fa-heart like-btn" style="color: #ED4956;"></span>？人がいいね！しました</p>
+                <% end %>
+            <% else %>
+                <%= link_to("いいね!", "/favorites/#{blog.id}/create", {method: "post"}) %>
+            <% end %>
+            <!--ここまで-->
+            <div style="text-align:right">
+                <%= link_to '詳細', blog %>
+            </div>
+        </div>
+    <% end %>
+</div>

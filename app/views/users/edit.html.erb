@@ -1,0 +1,40 @@
+<div class="body-content">
+    <h3>プロフィールの編集(user_edit)</h3>
+    <%= form_with(model: @user, local: true) do |form| %>
+        <% if @user.errors.any? %>
+            <div id="error_explanation">
+                <h2><%= pluralize(@user.errors.count, "error") %> prohibited this users from being saved:</h2>
+                <ul>
+                <% @user.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+                </ul>
+            </div>
+        <% end %>
+        <div class="field">
+            <%= form.label :名前 %>
+            <%= form.text_field :name %><br>
+        </div>
+        <div class="field">
+            <%= form.label :メールアドレス %>
+            <%= form.text_field :email %><br>
+        </div>
+        <div class="field">
+            <%= form.label :アイコン %>
+            <%= form.file_field :user_image %><br>
+        </div>      
+        <div class="field">
+            <%= form.label :自己紹介 %>
+            <%= form.text_field :pr %>
+        </div>   
+        <div class="field">
+            <%= form.label :住所 %>
+            <%= form.text_field :address %><br>
+        </div>
+        <div class="actions">
+            <%= form.submit %><br>
+        </div>
+    <% end %>
+    <%= link_to 'ユーザー詳細', @user %>
+    <%= link_to 'ユーザー一覧', users_path %>
+</div>

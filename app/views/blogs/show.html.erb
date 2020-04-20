@@ -1,0 +1,23 @@
+<div class="body-content">
+    <p id="notice"><%= notice %></p>
+    <h3>投稿の詳細(show)</h3>
+    <p>
+    <% if @blog.blog_image? %>
+        <%= image_tag @blog.blog_image.url %>
+    <% end %>
+    </p>
+    <p>
+        <strong>Comment:</strong>
+        <%=@blog.content %>
+    </p>
+    <p style="text-align: right; color: #9f9f9f;">
+        <% if @user.user_image? %>
+            <%= image_tag @user.user_image.url, :size =>'30x30' %>
+        <% else %>
+            <%= image_tag "/assets/face00.jpg", :size =>'30x30' %>
+        <% end %>
+    <%= @user.name %>が投稿</p>
+    <%= link_to '投稿編集', edit_blog_path(@blog) %> |
+    <%= link_to 'ブログ一覧', blogs_path %> |
+    <%= link_to '新規投稿', new_blog_path %>
+</div>

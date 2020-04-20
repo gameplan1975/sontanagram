@@ -1,0 +1,38 @@
+<div class="body-content">
+    <p id="notice"><%= notice %></p>
+    <h3>
+        <% if current_user.user_image? %>
+            <%= image_tag current_user.user_image.url, class:'user-icon' %>
+        <% else %>
+            <%= image_tag "/assets/face00.jpg", :size =>'30x30' %>
+        <% end %>
+        <%= current_user.name %>の投稿一覧(index)
+    </h3>
+    <p><%= link_to '投稿する', new_blog_path %> |
+        <%= link_to '他ユーザーの投稿を見る', "/blogs/list" %> |
+        <%= link_to 'お気に入りした投稿を見る', "/users/#{current_user.id}/like" %>
+    </p>
+    <% @blogs.each do |blog| %>
+        <div class="body-frame">
+            <% if blog.blog_image? %>
+                <p><%= image_tag blog.blog_image.url %></P>
+            <% end %>
+            <%= blog.content %><br>
+            <p style="color:#9f9f9f; text-align:right"><%= blog.updated_at.strftime("%Y-%m-%d %H:%M") %>
+                <p style="text-align: right; color: #9f9f9f;">
+            <% if blog.user.user_image? %>
+                <%= image_tag blog.user.user_image.url, class:'user-icon' %>
+            <% else %>
+                <%= image_tag "/assets/face00.jpg", :size =>'30x30' %>
+            <% end %>
+            <%= blog.user.name %>が投稿</p>
+            <div style="text-align:right">
+                <%= link_to '詳細', blog %>
+                <% if blog.user.name == current_user.name %>
+                    <%= link_to '編集', edit_blog_path(blog) %>
+                    <%= link_to '削除', blog, method: :delete, data: { confirm: '削除しますか？' } %>
+                <% end %>
+            </div>
+        </div>
+    <% end %>
+</div>

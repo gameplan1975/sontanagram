@@ -1,0 +1,16 @@
+<div class="body-content">
+    <h3>おすすめユーザー(user_index)</h3>
+    <% @users.each do |user| %>
+        <div class="body-frame">
+            <% if user.user_image? %>
+                <%= image_tag user.user_image.url %>
+            <% else %>
+                <img src="/assets/face00.jpg">
+            <% end %><br>
+            <%= user.name %><br>
+            <%= user.pr %><br>
+            <%= user.address %><br>
+            <%= link_to 'ユーザー詳細', user %>
+        </div>
+    <% end %>
+</div>

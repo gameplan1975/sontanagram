@@ -1,0 +1,37 @@
+<div class="body-content">
+    <p id="notice"><%= notice %></p>
+    <h3>新規登録(user_new)</h3>
+    <% if @user.errors.any? %>
+        <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this users from being saved:</h2>
+        <ul>
+            <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+        </ul>
+        </div>
+    <% end %>
+
+    <%= form_with(model: @user, local: true) do |form| %>
+        <div class="field">
+            <%= form.label :名前 %><br>
+            <%= form.text_field :name %>
+        </div>
+        <div class="field">
+            <%= form.label :メールアドレス %><br>
+            <%= form.text_field :email %>
+        </div>
+        <div class="field">
+            <%= form.label :パスワード %><br>
+            <%= form.password_field :password %>
+        </div>
+        <div class="field">
+            <%= form.label :パスワード（確認用） %><br>
+            <%= form.password_field :password_confirmation %>
+        </div> <br>
+        <div class="actions">
+            <%= form.submit %>
+        </div>
+    <% end %><br>
+    <%= link_to '登録しない', "/" %>
+</div>
