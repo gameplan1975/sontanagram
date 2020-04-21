@@ -26,7 +26,7 @@ class BlogsController < ApplicationController
   
       if @blog.save
         #ContactMailer.contact_mail(current_user).deliver
-        redirect_to , notice: 'ブログを投稿しました'
+        redirect_to blogs_url, notice: 'ブログを投稿しました'
       else
         render :new
       end
