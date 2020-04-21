@@ -25,8 +25,8 @@ class BlogsController < ApplicationController
       @blog.user_id = current_user.id
   
       if @blog.save
-        ContactMailer.contact_mail(current_user).deliver
-        redirect_to blogs_path, notice: 'ブログを投稿しました'
+        #ContactMailer.contact_mail(current_user).deliver
+        redirect_to , notice: 'ブログを投稿しました'
       else
         render :new
       end
@@ -60,14 +60,6 @@ class BlogsController < ApplicationController
   private
     def set_blog
       @blog = Blog.find(params[:id])
-    end
-
-    def protect
-      @blog = Blog.find_by(id:params[:id])
-      binding pry
-      unless @blog.user_id == current_user.id
-        redirect_to "/", notice: "権限がありません"
-      end
     end
 
     def blog_params

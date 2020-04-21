@@ -16,10 +16,16 @@ class UsersController < ApplicationController
     end
   
     def new
+      unless @user.id == current_user.id
+        redirect_to "/", notice: "権限がありません"
+      end
       @user = User.new
     end
   
     def edit
+      unless @user.id == current_user.id
+        redirect_to "/", notice: "権限がありません"
+      end
     end
   
     def create
@@ -49,13 +55,7 @@ class UsersController < ApplicationController
       def set_user
         @user = User.find(params[:id])
       end
-
-      def protect
-        @blog = Blog.find_by(id:params[:id])
-        @blog.user_id != current.user.id
-        redirect_to("/")
-      end 
-  
+ 
       def user_params
         params.require(:user).permit(:name, :email, :password_digest, :pr, :address, :user_image, :password, :password_confirmation,
         :user_image, :user_image_cache)
