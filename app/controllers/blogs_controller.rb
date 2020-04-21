@@ -49,18 +49,19 @@ class BlogsController < ApplicationController
       #@favo_count = Favorite.where(blog_id:      )
     end
   
-    private
-      def set_blog
-        @blog = Blog.find(params[:id])
-      end
+  private
+    def set_blog
+      @blog = Blog.find(params[:id])
+    end
 
-      def protect
-        #@blog = Blog.find_by(id:params[:id])
-        #@blog.user_id != current_user.id
-        #redirect_to "/", notice: "権限がありません"
-      end        
-  
-      def blog_params
-        params.require(:blog).permit(:content, :blog_image, :blog_image_cache, :user_id)
+    def protect
+      @blog = Blog.find_by(id:params[:id])
+      if @blog.user_id != current_user.id?
+        redirect_to "/", notice: "権限がありません"
       end
+    end
+
+    def blog_params
+      params.require(:blog).permit(:content, :blog_image, :blog_image_cache, :user_id)
+    end
 end

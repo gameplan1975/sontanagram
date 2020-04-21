@@ -1,6 +1,9 @@
 <div class="body-content">
 <p id="notice"><%= notice %></p>
 <h3>プロフィール(user_show)</h3>
+<% unless logged_in? %>
+  <%=link_to "ログイン", new_session_path%>
+<% end %>
 <div class="body-frame">
 <p>
   <strong>Name:</strong>
@@ -20,14 +23,15 @@
   <%= @user.address %>
 </p>
 </div>
-  <% if @user.id == current_user.id %>
+  <% if logged_in? %>
     <%= link_to 'プロフィール編集', edit_user_path(@user) %> |
   <% end %>
   <%= link_to 'ユーザー一覧', users_path %> |
-  <% if @user.id == current_user.id %>
+  <% if logged_in? %>
     <%= link_to 'ブログ一覧', blogs_path %> |
   <% end %>
 <%= link_to '新規投稿', new_blog_path %> |
+<% if logged_in? %>
 <%= link_to 'お気に入り投稿', "/users/#{current_user.id}/like" %>
-
+<% end %>
 </div>
