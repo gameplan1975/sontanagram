@@ -1,5 +1,4 @@
 class BlogsController < ApplicationController
-  before_action :protect, only: [:edit, :update, :destroy]
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
 
     def index
@@ -16,6 +15,9 @@ class BlogsController < ApplicationController
     end
   
     def edit
+      unless @blog.user_id == current_user.id
+        redirect_to "/", notice: "権限がありません"
+      end
     end
   
     def create
@@ -31,6 +33,9 @@ class BlogsController < ApplicationController
     end
   
     def update
+      unless @blog.user_id == current_user.id
+        redirect_to "/", notice: "権限がありません"
+      end
       if @blog.update(blog_params)
         redirect_to @blog, notice: '投稿を編集しました.'
       else
@@ -39,6 +44,9 @@ class BlogsController < ApplicationController
     end
   
     def destroy
+      unless @blog.user_id == current_user.id
+        redirect_to "/", notice: "権限がありません"
+      end
       @blog.destroy
       redirect_to blogs_url, notice: '投稿を削除しました'
     end
@@ -56,7 +64,8 @@ class BlogsController < ApplicationController
 
     def protect
       @blog = Blog.find_by(id:params[:id])
-      if @blog.user_id != current_user.id?
+      binding pry
+      unless @blog.user_id == current_user.id
         redirect_to "/", notice: "権限がありません"
       end
     end
