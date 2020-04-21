@@ -15,16 +15,10 @@ class UsersController < ApplicationController
     end
   
     def new
-      unless @user.id == current_user.id
-        redirect_to "/", notice: "権限がありません"
-      end
       @user = User.new
     end
   
     def edit
-      unless @user.id == current_user.id
-        redirect_to "/", notice: "権限がありません"
-      end
     end
   
     def create
